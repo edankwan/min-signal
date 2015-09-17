@@ -3,7 +3,7 @@ A mini version of signal in Javascript. It supports priority and additional pref
 
 ## Examples
 
-###Basic Example
+### Basic Example
 Example of using the basic functions: `add()`, `dispatch()` and `remove()` with **min-signal**
 ````js
 var onStarted = new MinSignal();
@@ -17,7 +17,7 @@ onStarted.dispatch('foo', 'bar'); //dispatch signal passing custom parameters
 onStarted.remove(callback); //remove a single listener
 ````
 
-###addOnce()
+### addOnce()
 If you want the callback to be dispatched only once, you can use `addOnce()`.
 ````js
 var onStarted = new MinSignal();
@@ -31,7 +31,7 @@ onStarted.dispatch(); // log : hello
 onStarted.dispatch(); // do nothing
 ````
 
-###Priority
+### Priority
 The third argument of the `add()` and `addOnce()` is the priority, the higher it is, the earlier it will be dispatched. The default value is 0, and order by first comes first served principle.
 ````js
 var onStarted = new MinSignal();
@@ -54,7 +54,7 @@ onStarted.add(callback3, null, 10);
 onStarted.dispatch(); // log : 3, 1, 2
 ````
 
-###Context
+### Context
 Like function binding, you can provide the context for the callback binding. Same context with the same function will be ignored.
 ````js
 var onStarted = new MinSignal();
@@ -72,7 +72,7 @@ onStarted.add(callback, b);
 onStarted.dispatch(); // log : a, b
 ````
 
-###Argument prefix
+### Argument prefix
 You can also add argument prefix with the `add()` and `addOnce()` like in `Function.bind()`. One thing need to keep in mind is that, for the duplicated callback checking, it only check the function and the context, same function with the same context with new argument prefix will be rejected instead of overriding.
 ````js
 var onStarted = new MinSignal();

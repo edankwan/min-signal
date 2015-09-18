@@ -1,32 +1,31 @@
 {
-  "name": "min-signal",
-  "version": "0.0.1",
-  "description": "lightweight signal with priority support.",
-  "main": "min-signal.js",
-  "author": "Edan Kwan",
-  "license": "Giant Penis License(GPL)",
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/edankwan/min-signal.git"
-  },
-  "keywords": [
-    "events",
-    "signals",
-    "priority",
-    "signal"
-  ],
-  "bugs": {
-    "url": "https://github.com/edankwan/min-signal/issues"
-  },
-  "homepage": "https://github.com/edankwan/min-signal",
-  "scripts": {
-    "test": "mocha min-signal-spec.js"
-  },
-  "devDependencies": {
-    "assume": "~1.3.1",
-    "mocha": "~2.3.0"
-  },
-  "dependencies": {
-    "assume": "^1.3.1"
-  }
+    "name": "budo-boilderplate",
+    "version": "1.0.0",
+    "private" : true,
+    "description": "",
+    "main": "index.js",
+    "dependencies": {
+    },
+    "devDependencies": {
+        "browserify" : "10.0.0",
+        "budo": "^4.1.0",
+        "garnish": "^2.1.3",
+        "glslify": "^2.0.1",
+        "uglify-js": "^2.4.21",
+        "opnr": "^1.0.4",
+
+        "min-signal" : "~0.0.2",
+        "raf" : "3.0.0",
+
+        "three" : "0.71.0",
+        "uglifyify " : "3.0.1",
+        "glsl-noise" : "0.0.0"
+
+    },
+    "scripts": {
+        "watch": "budo src/app.js:assets/js/app.js --dir ./ --live -v -t glslify | opnr | garnish",
+        "build": "browserify src/app.js -t glslify -g uglifyify -o assets/js/app.js"
+    },
+    "author": "",
+    "license": "MIT"
 }

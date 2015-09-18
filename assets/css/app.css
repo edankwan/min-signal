@@ -1,0 +1,86 @@
+html {
+    position: absolute;
+    width: 100%;
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+body {
+    position: relative;
+    width: 100%;
+}
+::selection {
+    background: #de4d5e;
+    color: #fff;
+}
+::-moz-selection {
+    background: #de4d5e;
+    color: #fff;
+}
+
+a, a:active, a:visited {
+    color: #de4d5e;
+}
+a:hover {
+    color: #b32334;
+}
+
+body * {
+    box-sizing: border-box;
+}
+
+canvas {
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+h1, h2, h3, h4 {
+    font-family: 'Cardo', serif;
+    font-weight: bold;
+}
+
+h1 {
+    font-size: 32px;
+    letter-spacing: -1px;
+}
+h2 {
+    font-size: 24px;
+    margin-bottom: 25px;
+    text-decoration: underline;
+}
+h3 {
+    font-size: 18px;
+}
+
+pre {
+    background-color: rgba(235, 235, 235, 0.4);
+    padding:  10px 10px;
+}
+
+h1 code, h2 code, h3 code, h4, p code {
+    background-color: rgba(235, 235, 235, 0.4);
+    padding: 0 3px;
+}
+
+code {
+    font-size: 14px;
+    font-family: Consolas, 'Liberation Mono', Courier, monospace;
+}
+
+
+.context {
+    position: relative;
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    min-height: 100vh;
+    padding: 80px 80px 200px 80px;
+    background-color: rgba(255, 255, 255, 0.8);
+    z-index: 1024;
+
+    font-size: 18px;
+}
+
+.context-top {
+    margin-bottom: 40px;
+}

@@ -139,8 +139,8 @@ function _render(dt) {
 
     _showAnimation += (1 - _showAnimation) * 0.01;
 
-    _camera.position.y = 200 - _showAnimation * 200 - scrollRatio * 100;
-    _camera.position.z = 1300 - _showAnimation * 200 - scrollRatio * 300;
+    _camera.position.y = 200 - _showAnimation * 200 - scrollRatio * 50;
+    _camera.position.z = 1300 - _showAnimation * 200 - scrollRatio * 100;
     _camera.lookAt(new THREE.Vector3());
 
     _scene.fog.density += (0.001 - _scene.fog.density) * 0.15;

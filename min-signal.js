@@ -51,7 +51,7 @@ function add (fn, context, priority, args) {
         priority = args;
         sliceIndex = 4;
     }
-    listeners.unshift({f: fn, c: context, p: priority, r: realFn || fn, a: _slice.call(arguments, sliceIndex || 3), j: false});
+    listeners.unshift({f: fn, c: context, p: priority, r: realFn || fn, a: _slice.call(arguments, sliceIndex || 3), j: 0});
     _sort(listeners);
 }
 
@@ -98,7 +98,7 @@ function remove (fn, context) {
     while(i--) {
         listener = listeners[i];
         if(listener.f === fn && (!context || (listener.c === context))) {
-            listener.j = true;
+            listener.j = 1;
             listeners.splice(i, 1);
             return true;
         }
@@ -119,7 +119,7 @@ function dispatch(args) {
     while(i--) {
         listener = listeners[i];
         if(listener && !listener.j) {
-            listener.j = true;
+            listener.j = 1;
             if(listener.r.apply(listener.c, listener.a.concat(args)) === false) {
                 break;
             }
@@ -128,7 +128,7 @@ function dispatch(args) {
     listeners = this._listeners;
     i = listeners.length;
     while(i--) {
-        listeners[i].j = false;
+        listeners[i].j = 0;
     }
 }
 

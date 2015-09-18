@@ -1,7 +1,8 @@
 # min-signal
 A mini version of signal in Javascript. It supports priority and additional prefixed/suffixed arguments.
 
-## Examples
+Examples
+---
 
 ### Basic Example
 Example of using the basic functions: `add()`, `dispatch()` and `remove()` with **min-signal**
@@ -36,15 +37,15 @@ The third argument of the `add()` and `addOnce()` is the priority, the higher it
 ````js
 var onStarted = new MinSignal();
 
-function callback1(param1, param2) {
+function callback1() {
     console.log('1');
 }
 
-function callback2(param1, param2) {
+function callback2() {
     console.log('2');
 }
 
-function callback3(param1, param2) {
+function callback3() {
     console.log('3');
 }
 
@@ -88,6 +89,11 @@ onStarted.dispatch('c', 'd'); // log : abcd
 Testing
 ---
 run `npm run test` to run the test suite.
+
+TODO
+---
+- add more tests
+- add gh-pages
 
 License
 ---

@@ -14,92 +14,96 @@
     </head>
     <body>
 <div class="context">
-    <div class="context-top">
-        <h1>#min-signal</h1>
-        <p>min-signal is a lightweight version of js-signals which is heavily inspired by Robert Penner’s AS3-Signals. Signal is an alternative to Events /Promises/Callbacks. To know more about the differences, you can check out the Wiki page of js-signals.</p>
-        <p>Unlike other trimmed version js-signals, min-signal preverses some useful features like “priorty” and “arguments injection” which comes in handy during the development.</p>
-    </div>
 
-    <h2 id="examples">Examples</h2>
-    <h3 id="basic-example">Basic Example</h3>
-    <p>Example of using the basic functions: <code>add()</code>, <code>dispatch()</code> and <code>remove()</code> with <strong>min-signal</strong></p>
-    <pre><code class="lang-js">var onStarted = new MinSignal();
+<h1 id="min-signal">min-signal</h1>
+<p>min-signal is a lightweight version of <a href="https://millermedeiros.github.io/js-signals/"><strong>js-signals</strong></a> which is heavily inspired by <a href="https://github.com/robertpenner/as3-signals"><strong>Robert Penner’s AS3-Signals</strong></a>. Signal is an alternative to <code>Events</code>/<code>Promises</code>/<code>Callbacks</code>. To know more about the differences, you can check out the <a href="https://github.com/millermedeiros/js-signals/wiki/Comparison-between-different-Observer-Pattern-implementations"><strong>Wiki page</strong></a> of js-signals.</p>
+<p>Unlike other trimmed version js-signals, min-signal preverses some useful features like <strong>priorty</strong> and <strong>arguments injection</strong> which comes in handy during the development.</p>
+<h2 id="examples">Examples</h2>
+<h3 id="basic-example">Basic Example</h3>
+<p>Example of using the basic functions: <code>add()</code>, <code>dispatch()</code> and <code>remove()</code> with <strong>min-signal</strong></p>
+<pre><code class="lang-js">var onStarted = new MinSignal();
 
-    function callback(param1, param2) {
-        console.log(param1 + &#39; &#39; + param2);
-    }
+function callback(param1, param2) {
+    console.log(param1 + &#39; &#39; + param2);
+}
 
-    onStarted.add(callback); //add listener
-    onStarted.dispatch(&#39;foo&#39;, &#39;bar&#39;); //dispatch signal passing custom parameters
-    onStarted.remove(callback); //remove a single listener
-    </code></pre>
-    <h3 id="addonce-">addOnce()</h3>
-    <p>If you want the callback to be dispatched only once, you can use <code>addOnce()</code>.</p>
-    <pre><code class="lang-js">var onStarted = new MinSignal();
+onStarted.add(callback); //add listener
+onStarted.dispatch(&#39;foo&#39;, &#39;bar&#39;); //dispatch signal passing custom parameters
+onStarted.remove(callback); //remove a single listener
+</code></pre>
+<h3 id="addonce-">addOnce()</h3>
+<p>If you want the callback to be dispatched only once, you can use <code>addOnce()</code>.</p>
+<pre><code class="lang-js">var onStarted = new MinSignal();
 
-    function callback() {
-        console.log(&#39;hello&#39;);
-    }
+function callback() {
+    console.log(&#39;hello&#39;);
+}
 
-    onStarted.addOnce(callback);
-    onStarted.dispatch(); // log : hello
-    onStarted.dispatch(); // do nothing
-    </code></pre>
-    <h3 id="priority">Priority</h3>
-    <p>The third argument of the <code>add()</code> and <code>addOnce()</code> is the priority, the higher it is, the earlier it will be dispatched. The default value is 0, and order by first comes first served principle.</p>
-    <pre><code class="lang-js">var onStarted = new MinSignal();
+onStarted.addOnce(callback);
+onStarted.dispatch(); // log : hello
+onStarted.dispatch(); // do nothing
+</code></pre>
+<h3 id="priority">Priority</h3>
+<p>The third argument of the <code>add()</code> and <code>addOnce()</code> is the priority, the higher it is, the earlier it will be dispatched. The default value is 0, and order by first comes first served principle.</p>
+<pre><code class="lang-js">var onStarted = new MinSignal();
 
-    function callback1() {
-        console.log(&#39;1&#39;);
-    }
+function callback1() {
+    console.log(&#39;1&#39;);
+}
 
-    function callback2() {
-        console.log(&#39;2&#39;);
-    }
+function callback2() {
+    console.log(&#39;2&#39;);
+}
 
-    function callback3() {
-        console.log(&#39;3&#39;);
-    }
+function callback3() {
+    console.log(&#39;3&#39;);
+}
 
-    onStarted.add(callback1);
-    onStarted.add(callback2);
-    onStarted.add(callback3, null, 10);
-    onStarted.dispatch(); // log : 3, 1, 2
-    </code></pre>
-    <h3 id="context">Context</h3>
-    <p>Like function binding, you can provide the context for the callback binding. Same context with the same function will be ignored.</p>
-    <pre><code class="lang-js">var onStarted = new MinSignal();
+onStarted.add(callback1);
+onStarted.add(callback2);
+onStarted.add(callback3, null, 10);
+onStarted.dispatch(); // log : 3, 1, 2
+</code></pre>
+<h3 id="context">Context</h3>
+<p>Like function binding, you can provide the context for the callback binding. Same context with the same function will be ignored.</p>
+<pre><code class="lang-js">var onStarted = new MinSignal();
 
-    function callback() {
-        console.log(this.id);
-    }
+function callback() {
+    console.log(this.id);
+}
 
-    var a = {id: &#39;a&#39;};
-    var b = {id: &#39;b&#39;};
+var a = {id: &#39;a&#39;};
+var b = {id: &#39;b&#39;};
 
-    onStarted.add(callback, a);
-    onStarted.add(callback, a);
-    onStarted.add(callback, b);
-    onStarted.dispatch(); // log : a, b
-    </code></pre>
-    <h3 id="argument-prefix">Argument prefix</h3>
-    <p>You can also add argument prefix with the <code>add()</code> and <code>addOnce()</code> like in <code>Function.bind()</code>. One thing need to keep in mind is that, for the duplicated callback checking, it only check the function and the context, same function with the same context with new argument prefix will be rejected instead of overriding.</p>
-    <pre><code class="lang-js">var onStarted = new MinSignal();
+onStarted.add(callback, a);
+onStarted.add(callback, a);
+onStarted.add(callback, b);
+onStarted.dispatch(); // log : a, b
+</code></pre>
+<h3 id="argument-prefix">Argument prefix</h3>
+<p>You can also add argument prefix with the <code>add()</code> and <code>addOnce()</code> like in <code>Function.bind()</code>. One thing need to keep in mind is that, for the duplicated callback checking, it only check the function and the context, same function with the same context with new argument prefix will be rejected instead of overriding.</p>
+<pre><code class="lang-js">var onStarted = new MinSignal();
 
-    function callback(param1, param2, param3, param4) {
-        console.log(param1 + param2 + param3 + param4);
-    }
+function callback(param1, param2, param3, param4) {
+    console.log(param1 + param2 + param3 + param4);
+}
 
-    onStarted.add(callback, null, 0, &#39;a&#39;, &#39;b&#39;);
-    onStarted.dispatch(&#39;c&#39;, &#39;d&#39;); // log : abcd
-    </code></pre>
-    <h2 id="testing">Testing</h2>
-    <p>run <code>npm run test</code> to run the test suite.</p>
-    <h2 id="todo">TODO</h2>
-    <ul>
-    <li>add more tests</li><li>add gh-pages</li></ul>
-    <h2 id="license">License</h2>
-    <p>min-signal is currently under <a href="http://giant-penis-license.org"><strong>Giant Penis License (GPL)</strong></a> which is a deformed M.I.T license including penis text art.</p>
+onStarted.add(callback, null, 0, &#39;a&#39;, &#39;b&#39;);
+onStarted.dispatch(&#39;c&#39;, &#39;d&#39;); // log : abcd
+</code></pre>
+<h2 id="installation">Installation</h2>
+<h3 id="manually">Manually</h3>
+<p>Download min-signal <a href="https://raw.githubusercontent.com/edankwan/min-signal/master/min-signal.js"><strong>here</strong></a>.</p>
+<h3 id="npm">Npm</h3>
+<p>Check out the npm page <a href="https://www.npmjs.com/package/min-signal"><strong>here</strong></a>.</p>
+<h2 id="testing">Testing</h2>
+<p>run <code>npm run test</code> to run the test suite.</p>
+<h2 id="todo">TODO</h2>
+<ul>
+<li>additional features?</li><li>add more tests</li></ul>
+<h2 id="license">License</h2>
+<p>min-signal is currently under <a href="http://giant-penis-license.org"><strong>Giant Penis License (GPL)</strong></a> which is a deformed M.I.T license including penis text art.</p>
+
 
 </div>
 <a href="https://github.com/edankwan/min-signal"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a>

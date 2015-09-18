@@ -1,5 +1,9 @@
 # min-signal
-A mini version of signal in Javascript. It supports priority and additional prefixed/suffixed arguments.
+
+[**min-signal**](http://edankwan.github.io/min-signal) is a lightweight version of [**js-signals**](https://millermedeiros.github.io/js-signals/) which is heavily inspired by [**Robert Penner’s AS3-Signals**](https://github.com/robertpenner/as3-signals). Signal is an alternative to `Events`/`Promises`/`Callbacks`. To know more about the differences, you can check out the [**Wiki page**](https://github.com/millermedeiros/js-signals/wiki/Comparison-between-different-Observer-Pattern-implementations) of js-signals.
+
+Unlike other trimmed version js-signals, min-signal preverses some useful features like **priorty** and **arguments injection** which comes in handy during the development.
+
 
 Examples
 ---
@@ -86,14 +90,25 @@ onStarted.add(callback, null, 0, 'a', 'b');
 onStarted.dispatch('c', 'd'); // log : abcd
 ````
 
+
+Installation
+---
+### Manually
+Download min-signal [**here**](https://raw.githubusercontent.com/edankwan/min-signal/master/min-signal.js).
+
+### Npm
+Check out the npm page [**here**](https://www.npmjs.com/package/min-signal).
+
+
+
 Testing
 ---
 run `npm run test` to run the test suite.
 
 TODO
 ---
+- additional features?
 - add more tests
-- add gh-pages
 
 License
 ---

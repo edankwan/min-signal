@@ -91,6 +91,19 @@ function callback(param1, param2, param3, param4) {
 onStarted.add(callback, null, 0, &#39;a&#39;, &#39;b&#39;);
 onStarted.dispatch(&#39;c&#39;, &#39;d&#39;); // log : abcd
 </code></pre>
+<h3 id="stop-propagation">Stop Propagation</h3>
+<p>You can stop propagation by returning <code>false</code> in the callback function. By stopping propagation, in the <code>dispatch()</code> call it will return the listener which triggered the stop propagation.</p>
+<pre><code class="lang-js">var onStarted = new MinSignal();
+
+onStarted.add(function(){
+    return false; // returns &quot;false&quot; to stop propagation
+});
+onStarted.add(function(){
+    console.log(&#39;wont be triggered&#39;); // this function won&#39;t be trigger
+});
+
+onStarted.dispatch(); // log : {...} // will return the listener that stopped the propagation
+</code></pre>
 <h2 id="installation">Installation</h2>
 <h3 id="manually">Manually</h3>
 <p>Download min-signal <a href="https://raw.githubusercontent.com/edankwan/min-signal/master/min-signal.js"><strong>here</strong></a>.</p>

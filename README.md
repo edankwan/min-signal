@@ -91,7 +91,7 @@ onStarted.dispatch('c', 'd'); // log : abcd
 ````
 
 ### Stop Propagation
-You can also add argument prefix with the `add()` and `addOnce()` like in `Function.bind()`. One thing need to keep in mind is that, for the duplicated callback checking, it only check the function and the context, same function with the same context with new argument prefix will be rejected instead of overriding.
+You can stop propagation by returning `false` in the callback function. By stopping propagation, in the `dispatch()` call it will return the listener which triggered the stop propagation.
 ````js
 var onStarted = new MinSignal();
 

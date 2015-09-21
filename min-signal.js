@@ -114,13 +114,14 @@ function remove (fn, context) {
 function dispatch(args) {
     args = _slice.call(arguments, 0);
     var listeners = this._listeners;
-    var listener, context;
+    var listener, context, stoppedListener;
     var i = listeners.length;
     while(i--) {
         listener = listeners[i];
         if(listener && !listener.j) {
             listener.j = 1;
             if(listener.r.apply(listener.c, listener.a.concat(args)) === false) {
+                stoppedListener = listener;
                 break;
             }
         }
@@ -130,6 +131,8 @@ function dispatch(args) {
     while(i--) {
         listeners[i].j = 0;
     }
+
+    return stoppedListener;
 }
 
 if (typeof module !== 'undefined') {

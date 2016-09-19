@@ -80,6 +80,27 @@ describe('MinSignal', function tests() {
 
     describe('#dispatch()', function () {
 
+        it('dispatchs stack', function (done) {
+            var signal = new MinSignal();
+            var count  = 0;
+
+            signal.add(function (step) {
+                if (step === 0) {
+                    count += 1;
+                    signal.dispatch(1);
+                } else if (step === 1) {
+                    count += 2;
+                    signal.dispatch(2);
+                } else if (step === 2) {
+                    count += 3;
+                    assume(count).equals(6);
+                    done();
+                }
+            })
+            signal.dispatch(0);
+
+        });
+
         it('dispatchs multiple callbacks', function (done) {
             var signal = new MinSignal();
             var count  = 0;

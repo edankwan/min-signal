@@ -2,6 +2,7 @@ var MinSignal = (function(undef){
 
     function MinSignal() {
         this._listeners = [];
+        this.dispatchCount = 0;
     }
 
     var _p = MinSignal.prototype;
@@ -98,7 +99,7 @@ var MinSignal = (function(undef){
         while(i--) {
             listener = listeners[i];
             if(listener.f === fn && (!context || (listener.c === context))) {
-                listener.j = 1;
+                listener.j = 0;
                 listeners.splice(i, 1);
                 return true;
             }
@@ -113,13 +114,15 @@ var MinSignal = (function(undef){
      */
     function dispatch(args) {
         args = _slice.call(arguments, 0);
+        this.dispatchCount++;
+        var dispatchCount = this.dispatchCount;
         var listeners = this._listeners;
         var listener, context, stoppedListener;
         var i = listeners.length;
         while(i--) {
             listener = listeners[i];
-            if(listener && !listener.j) {
-                listener.j = 1;
+            if(listener && (listener.j < dispatchCount)) {
+                listener.j = dispatchCount;
                 if(listener.r.apply(listener.c, listener.a.concat(args)) === false) {
                     stoppedListener = listener;
                     break;
@@ -131,7 +134,6 @@ var MinSignal = (function(undef){
         while(i--) {
             listeners[i].j = 0;
         }
-
         return stoppedListener;
     }
 

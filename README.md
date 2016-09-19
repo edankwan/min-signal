@@ -4,6 +4,7 @@
 
 Unlike other trimmed version js-signals, min-signal preverses some useful features like **priorty** and **arguments injection** which comes in handy during the development.
 
+Dispatch the same signal within the signal callback is not recommended. If it happens the new signal execution will kick in and stop the unfinished execution. 
 
 Examples
 ---

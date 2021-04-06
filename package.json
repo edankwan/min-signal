@@ -1,6 +1,6 @@
 {
   "name": "min-signal",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "lightweight signal with priority support.",
   "main": "min-signal.js",
   "author": "Edan Kwan",

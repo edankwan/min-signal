@@ -1,5 +1,13 @@
 {
 	"name": "min-signal",
+  "version": "0.0.8",
+  "description": "lightweight signal with priority support.",
+  "author": "Edan Kwan",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/edankwan/min-signal.git"
+  },
 	"main": "build/index.js",
 	"module": "build/index.esm.js",
 	"browser": "build/index.umd.js",

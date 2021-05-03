@@ -15,7 +15,7 @@ export default class MinSignal {
 		list.sort(function (a, b) {
 			a = a.p;
 			b = b.p;
-			return b < a ? 1 : a > b ? -1 : 0;
+			return b < a ? 1 : a < b ? -1 : 0;
 		});
 	}
 
@@ -68,7 +68,7 @@ export default class MinSignal {
 		};
 		args = this._slice.call(arguments, 0);
 		if (args.length === 1) {
-			args.push();
+			args.push(undefined);
 		}
 		args.splice(2, 0, realFn);
 		this.add.apply(self, args);

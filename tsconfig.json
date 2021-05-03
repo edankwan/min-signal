@@ -1,0 +1,17 @@
+{
+	"compilerOptions": {
+		"baseUrl": "src",
+		"esModuleInterop": true,
+		"forceConsistentCasingInFileNames": true,
+		"incremental": true,
+		"module": "CommonJS",
+		"moduleResolution": "node",
+		"noEmit": true,
+		"noEmitOnError": false,
+		"noImplicitAny": false,
+		"skipLibCheck": true,
+		"strict": false,
+		"strictPropertyInitialization": false,
+		"target": "ES6"
+	}
+}

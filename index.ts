@@ -15,7 +15,7 @@ export default class MinSignal {
 		list.sort(function (a, b) {
 			a = a.p;
 			b = b.p;
-			return b < a ? 1 : a < b ? -1 : 0;
+			return b > a ? 1 : b < a ? -1 : 0;
 		});
 	}
 

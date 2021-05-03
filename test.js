@@ -51,12 +51,12 @@ describe('MinSignal', function tests() {
 			signal.add(foo, d);
 			signal.add(foo, e, 7);
 			signal.add(foo, f, 12);
-			assume(signal._listeners[0].c).equals(d);
-			assume(signal._listeners[1].c).equals(b);
-			assume(signal._listeners[2].c).equals(c);
-			assume(signal._listeners[3].c).equals(e);
-			assume(signal._listeners[4].c).equals(f);
-			assume(signal._listeners[5].c).equals(a);
+			assume(signal._listeners[0].c).equals(a);
+			assume(signal._listeners[1].c).equals(f);
+			assume(signal._listeners[2].c).equals(e);
+			assume(signal._listeners[3].c).equals(c);
+			assume(signal._listeners[4].c).equals(b);
+			assume(signal._listeners[5].c).equals(d);
 			done();
 		});
 

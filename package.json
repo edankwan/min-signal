@@ -1,9 +1,26 @@
 {
 	"name": "min-signal",
+	"description": "Lightweight signal with priority support",
+	"author": "Edan Kwan",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "git://github.com/edankwan/min-signal.git"
+	},
+	"bugs": {
+		"url": "https://github.com/edankwan/min-signal/issues"
+	},
+	"keywords": [
+		"events",
+		"signals",
+		"priority",
+		"signal"
+	],
+	"homepage": "https://github.com/edankwan/min-signal",
+	"version": "0.0.9",
 	"main": "build/index.js",
 	"module": "build/index.esm.js",
 	"browser": "build/index.umd.js",
-	"types": "build/index.d.ts",
 	"devDependencies": {
 		"@babel/core": "^7.14.0",
 		"@babel/preset-env": "^7.14.0",

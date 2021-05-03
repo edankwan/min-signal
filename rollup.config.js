@@ -22,13 +22,7 @@ const terserOptions = {
 	},
 };
 
-const plugins = [
-	nodeResolve({ extensions: ['.ts', '.js'] }),
-	commonjs(),
-	esbuild({
-		minify: true,
-	}),
-];
+const plugins = [nodeResolve({ extensions: ['.ts', '.js'] }), commonjs(), esbuild({})];
 
 export default [
 	{
@@ -38,7 +32,6 @@ export default [
 			...plugins,
 			getBabelOutputPlugin({
 				presets: [['@babel/preset-env', { modules: 'commonjs', targets: { browsers: ['defaults', 'last 3 version', 'IE 11'] } }]],
-				compact: true,
 			}),
 			terser(terserOptions),
 		],

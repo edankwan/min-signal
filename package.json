@@ -24,7 +24,7 @@
   },
   "devDependencies": {
     "assume": "~1.4.1",
-    "mocha": "~3.0.2"
+    "mocha": "^8.4.0"
   },
   "dependencies": {}
 }

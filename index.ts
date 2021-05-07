@@ -1,11 +1,18 @@
+interface MinSignalItem {
+	priority: number;
+	dispatchCount: number;
+	fn: Function;
+	realFn: Function;
+	context?: any;
+	args: Array<any>;
+}
+
 export default class MinSignal {
-	private readonly ERROR_MISSING_CALLBACK: string;
 	private _slice: any;
-	private _listeners: any;
+	private _listeners: Array<MinSignalItem>;
 	private _dispatchCount: number;
 
 	constructor() {
-		this.ERROR_MISSING_CALLBACK = 'Callback function is missing!';
 		this._slice = Array.prototype.slice;
 		this._listeners = [];
 		this._dispatchCount = 0;
@@ -26,17 +33,14 @@ export default class MinSignal {
 	 * @param {number} priority in the dispatch call. The higher priority it is, the eariler it will be dispatched.
 	 * @param {any...} additional argument prefix
 	 */
-	public add(fn, context, priority, args) {
-		if (!fn) {
-			throw this.ERROR_MISSING_CALLBACK;
-		}
+	public add(fn: Function, context?: any, priority?, ...args): boolean {
 		priority = priority || 0;
 		let listeners = this._listeners;
 		let listener, realFn, sliceIndex;
 		let i = listeners.length;
 		while (i--) {
 			listener = listeners[i];
-			if (listener.f === fn && listener.c === context) {
+			if (listener.fn === fn && listener.context === context) {
 				return false;
 			}
 		}
@@ -45,8 +49,9 @@ export default class MinSignal {
 			priority = args;
 			sliceIndex = 4;
 		}
-		listeners.unshift({ f: fn, c: context, p: priority, r: realFn || fn, a: this._slice.call(arguments, sliceIndex || 3), j: 0 });
+		listeners.unshift({ fn: fn, context: context, priority: priority, realFn: realFn || fn, args: this._slice.call(arguments, sliceIndex || 3), dispatchCount: 0 });
 		this._sort(listeners);
+		return true;
 	}
 
 	/**
@@ -56,11 +61,7 @@ export default class MinSignal {
 	 * @param {number} priority in the dispatch call. The higher priority it is, the eariler it will be dispatched.
 	 * @param {any...} additional argument prefix
 	 */
-	public addOnce(fn, context, priority, args) {
-		if (!fn) {
-			throw this.ERROR_MISSING_CALLBACK;
-		}
-
+	public addOnce(fn: Function, context?: any, priority?, ...args): boolean {
 		let self = this;
 		let realFn = function () {
 			self.remove.call(self, fn, context);
@@ -71,7 +72,7 @@ export default class MinSignal {
 			args.push(undefined);
 		}
 		args.splice(2, 0, realFn);
-		this.add.apply(self, args);
+		return this.add.apply(self, args);
 	}
 
 	/**
@@ -80,7 +81,7 @@ export default class MinSignal {
 	 * @param {object} the context of the callback function
 	 * @return {boolean} return true if there is any callback was removed
 	 */
-	public remove(fn, context) {
+	public remove(fn?, context?): boolean {
 		if (!fn) {
 			this._listeners.length = 0;
 			return true;
@@ -90,8 +91,8 @@ export default class MinSignal {
 		let i = listeners.length;
 		while (i--) {
 			listener = listeners[i];
-			if (listener.f === fn && (!context || listener.c === context)) {
-				listener.j = 0;
+			if (listener.fn === fn && (!context || listener.context === context)) {
+				listener.dispatchCount = 0;
 				listeners.splice(i, 1);
 				return true;
 			}
@@ -103,7 +104,7 @@ export default class MinSignal {
 	 * Dispatch the callback
 	 * @param {any...} additional argument suffix
 	 */
-	public dispatch(args) {
+	public dispatch(...args) {
 		args = this._slice.call(arguments, 0);
 		this._dispatchCount += 1;
 		let dispatchCount = this._dispatchCount;
@@ -112,9 +113,9 @@ export default class MinSignal {
 		let i = listeners.length;
 		while (i--) {
 			listener = listeners[i];
-			if (listener && listener.j < dispatchCount) {
-				listener.j = dispatchCount;
-				if (listener.r.apply(listener.c, listener.a.concat(args)) === false) {
+			if (listener && listener.dispatchCount < dispatchCount) {
+				listener.dispatchCount = dispatchCount;
+				if (listener.r.apply(listener.context, listener.a.concat(args)) === false) {
 					stoppedListener = listener;
 					break;
 				}
@@ -123,7 +124,7 @@ export default class MinSignal {
 		listeners = this._listeners;
 		i = listeners.length;
 		while (i--) {
-			listeners[i].j = 0;
+			listeners[i].dispatchCount = 0;
 		}
 		return stoppedListener;
 	}
